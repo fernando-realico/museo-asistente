@@ -1,3 +1,20 @@
+Requisitos del servidor (Ubuntu 22.04, SSH, Nginx, MySQL, Node.js, Python/Flask)
+
+Clonado del repositorio y permisos de usuario
+
+Configuración del backend (index.js)
+
+Servicio de embeddings (embed_service.py y entorno virtual)
+
+Base de datos MySQL con credenciales y carga inicial (seed_local_embeddings.py)
+
+Servidor LLaMA opcional (vía Ollama o llama.cpp)
+
+Servicios systemd (museo-backend.service y museo-embeddings.service)
+
+Reverse proxy con Nginx y diagnóstico con curl y journalctl
+
+
 1) Requisitos del servidor
 
 Ubuntu 22.04 LTS

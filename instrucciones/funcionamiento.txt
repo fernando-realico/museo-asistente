@@ -1,22 +1,13 @@
-{                                        // Inicio del objeto de configuración raíz
-  "server": { "port": 3000 },            // Puerto HTTP donde corre el backend Express (index.js)
-  "db": {                                // Bloque de conexión a MySQL
-    "host": "localhost",                 // Host de MySQL (localhost si es en la misma PC)
-    "user": "museo",                     // Usuario de la base de datos
-    "password": "museo2025",             // Password del usuario
-    "database": "museo"                  // Nombre de la base de datos a usar
-  },
-  "embed": {                             // Bloque del microservicio de embeddings (Flask)
-    "url": "http://127.0.0.1:5001/embed",// URL del endpoint POST /embed del servicio Python
-    "timeout_ms": 3500                   // Tiempo máximo (ms) para esperar la respuesta del /embed
-  },
-  "search": {                            // Parámetros del buscador vectorial del backend
-    "top_k": 4,                          // Cantidad máxima de candidatos a considerar (Top-K)
-    "sim_threshold": 0.22,               // Umbral mínimo de similitud coseno para aceptar un doc
-    "min_best_score": 0.74,              // Umbral que debe superar el MEJOR candidato para responder directo
-    "snippet_chars": 280                 // Largo del extracto (snippet) mostrado en la respuesta
-  },
-  "disambiguation": {                    // Parámetros para menú de desambiguación
-    "choice_delta": 0.02                 // Cuán “cerca” (en score) deben estar para ofrecer varias opciones
-  }
-}                                        // Fin del objeto
+El sistema Museo Asistente permite realizar consultas sobre hechos y eventos históricos del Museo de Realicó utilizando un motor de búsqueda híbrido, que combina análisis léxico y vectorial.
+
+Cuando un usuario ingresa una pregunta en el chat web, el backend desarrollado en Node.js la procesa y la envía al microservicio en Python, que transforma el texto en un vector numérico mediante el modelo paraphrase-multilingual-mpnet-base-v2.
+Ese vector se compara con los vectores almacenados en la base de datos MySQL, en la tabla conocimiento, y se selecciona la respuesta con mayor similitud.
+
+Si el resultado supera el umbral definido en el archivo app.config.json, el sistema devuelve directamente la mejor coincidencia; de lo contrario, ofrece un conjunto de respuestas relacionadas.
+Cada respuesta incluye la fuente o el fragmento correspondiente, y el usuario puede indicar si fue útil (pulgar arriba o pulgar abajo).
+Esa valoración se almacena en la tabla retroalimentacion de la base de datos museo, donde queda registrada junto con la fecha, la pregunta y la respuesta.
+
+Todo el procesamiento se realiza de forma local y sin conexión a Internet, utilizando únicamente los recursos del servidor donde se ejecuta el sistema.
+
+La documentación técnica de instalación y despliegue se encuentra en el archivo README_produccion.md dentro del mismo repositorio:
+https://github.com/fernando-realico/museo-asistente
