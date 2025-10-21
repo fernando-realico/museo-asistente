@@ -1,0 +1,38 @@
+@"
+# --- Node ---
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# --- Python ---
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# --- Modelos y binarios grandes ---
+models/
+llama_cpp/**
+!llama_cpp/README.md
+
+# --- Datos locales / temporales ---
+feedback.csv
+*.log
+*.tmp
+
+# --- Configs locales / secretos (si los usaras) ---
+.env
+*.env
+app.config.local.json
+
+# --- Builds / artefactos ---
+dist/
+build/
+
+# --- IDE / SO ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+"@ | Out-File -Encoding utf8 .gitignore

@@ -1,0 +1,9 @@
+{
+  "language": "es",
+  "intents": [
+    { "name": "who",   "triggers_any_regex": ["\\bqui[eé]n(es)?\\b"],             "fallback_snippet": true  },
+    { "name": "when",  "triggers_any_regex": ["\\bcu[aá]ndo\\b","\\bfecha\\b"],  "fallback_snippet": false },
+    { "name": "where", "triggers_any_regex": ["\\bd[oó]nde\\b","\\blugar\\b"],   "fallback_snippet": true  },
+    { "name": "first_of_kind", "triggers_any_regex": ["\\bprimera?\\b\\s+\\b(escuela|sucursal|instituci[oó]n)\\b"], "fallback_snippet": true }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "table": "conocimiento",
+  "columns": {
+    "id": "id",
+    "title": "titulo",
+    "content": "contenido",
+    "date": "fecha_evento",
+    "image": "imagen_url",
+    "tags": "etiquetas",
+    "source": "fuente_url",
+    "vector": "vector"
+  },
+  "feedback": {
+    "table": "retroalimentacion",
+    "columns": {
+      "thumb": "pulgar",
+      "question": "pregunta",
+      "answer": "respuesta",
+      "client_ip": "ip_cliente",
+      "user_agent": "agente_usuario",
+      "created_at": null
+    }
+  }
+}

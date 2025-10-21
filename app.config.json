@@ -1,0 +1,95 @@
+{
+  "llm": {
+    "enabled": true,
+    "url": "http://127.0.0.1:8081/completion",
+    "timeout_ms": 5000,
+    "mark": " ✨LLM",
+    "min_chars": 500,
+    "min_score_to_use": 0.60
+  },
+
+  "perf": {
+    "ask_budget_ms": 3500,
+    "embed_timeout_ms": 1800,
+    "llm_step_max_ms": 600,
+    "summary_step_max_ms": 1200,
+    "rerank_max_candidates": 3
+  },
+
+  "server": { "port": 3000 },
+
+  "db": {
+    "host": "localhost",
+    "user": "museo",
+    "password": "museo2025",
+    "database": "museo"
+  },
+
+  "embed": {
+    "url": "http://127.0.0.1:5001/embed",
+    "timeout_ms": 15000
+  },
+
+  "search": {
+    "top_k": 4,
+    "sim_threshold": 0.16,
+    "min_best_score": 0.70,
+    "snippet_chars": 2000,
+    "tag_match_bonus": 0.04,
+    "overlap_bonus_per_token": 0.00,
+    "overlap_bonus_max": 0.00,
+    "default_context": "Realicó",
+    "tag_bypass_sim": 0.70,
+
+    "rerank_with_llm": true,
+    "rerank_top_k": 6,
+    "rerank_min_chars": 400,
+    "llm_query_expand": true,
+    "llm_query_rewrite_on_low_conf": true
+  },
+
+  "disambiguation": {
+    "choice_delta": 0.02,
+
+ 
+    "gate_by_domain": true,
+    "generic_single_word_policy": "refine"  
+  },
+
+  "domain": {
+    "name": "museo_realico",
+
+    "hints": [
+      "realic", "fundac", "biblioteca", "escuela", "epet", "museo", "molino",
+      "cooperativa", "banco", "polic", "bombero", "parque", "centro cultural",
+      "ordenanza", "mapa", "plano", "estación", "tecno", "histori", "casona",
+      "juzgado", "iglesia"
+    ],
+
+ 
+    "wh_prefixes": ["cuando", "cuándo", "donde", "dónde", "que", "qué", "quien", "quién", "cual", "cuál", "como", "cómo"],
+
+ 
+    "min_words_for_choices": 2,
+
+
+    "allow_year_as_signal": true,
+
+  
+    "refine_message": "La consulta “{q}” es amplia para esta base. Indicá una pista (institución, año o lugar) para acercar el resultado."
+  },
+
+  "ranking": { "weights": { "prefer": 0.10, "avoid": 0.10 } },
+
+  "terms": { "prefer_terms": [], "avoid_terms": [] },
+
+  "intents": [
+    {
+      "name": "fecha_fundacion",
+      "detect": "(cuando|fecha).*(fundaci[oó]n|fundad[oa]|fundo)|(fundaci[oó]n|fundad[oa]|fundo).*(cuando|fecha)",
+      "prefer_terms": ["fundacion", "fundada", "fundado", "se fundó", "acta fundacional", "fundacional"],
+      "avoid_terms": [],
+      "prompt": "short_date"
+    }
+  ]
+}

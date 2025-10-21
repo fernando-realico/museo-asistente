@@ -1,0 +1,270 @@
+/* ============================================================
+   Museo Histórico de Realicó — styles.css (UI v3)
+   ============================================================ */
+
+/* =========== Tema (variables) =========== */
+:root{
+  --bg:#0f172a; --card:#111827; --text:#e5e7eb; --muted:#9ca3af;
+  --accent:#22d3ee; --ok:#22c55e; --warn:#f59e0b; --err:#fca5a5; --border:#1f2937;
+}
+
+/* =========== Reset mínimo =========== */
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
+  line-height:1.45;
+}
+
+/* =========== Barra superior =========== */
+.topbar{
+  padding:24px 16px; text-align:center;
+  background:linear-gradient(90deg,#0ea5e9,#06b6d4); color:#001926;
+}
+.topbar h1{ margin:0 0 4px; font-size:clamp(20px,2.6vw,32px); }
+.topbar p{ margin:0; opacity:.9; }
+
+/* =========== Grid principal =========== */
+.container{
+  max-width:1400px; margin:24px auto; padding:0 16px;
+  display:grid; grid-template-columns:1fr; gap:24px;
+}
+@media (min-width:980px){
+  .container{ grid-template-columns:minmax(0,1.15fr) minmax(380px,.85fr); }
+  body.chat-min .container{ grid-template-columns:1fr; }
+}
+
+/* =========== Timeline =========== */
+.timeline{
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:16px;
+}
+.card{
+  background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden;
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.card:hover{ transform:translateY(-2px); box-shadow:0 6px 18px rgba(0,0,0,.35); }
+.card img{ width:100%; height:150px; object-fit:cover; background:#0b1220; display:block; }
+.card .info{ padding:12px; }
+.card .info h3{ margin:0 0 6px; font-size:16px; }
+.card .info p{ margin:0; color:var(--muted); font-size:14px; }
+
+/* =========== Mensaje “sin datos” =========== */
+.empty{
+  padding:12px; border:1px dashed var(--border); border-radius:8px;
+  color:var(--muted); text-align:center;
+}
+
+/* =========== Panel del chat (sin barra propia) =========== */
+.chat{
+  position:relative;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px 16px 52px;
+  display:flex; flex-direction:column;
+  min-width:360px; min-height:520px;
+  height:calc(100vh - 160px);
+  max-height:none;
+  resize:none;                 /* usamos grip custom */
+  overflow:hidden;             /* única barra en .chat-log */
+}
+@media (min-width:980px){ .chat{ position:sticky; top:16px; } }
+
+/* === Grip de redimensionamiento visible y contrastado === */
+.chat-resize-grip {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  cursor: nwse-resize;
+  z-index: 3;
+  user-select: none;
+  background:
+    repeating-linear-gradient(135deg, transparent 0 4px, #22d3ee 4px 6px);
+  border: 1px solid #22d3eeaa;
+  box-shadow: 0 0 4px #22d3ee55, inset 0 0 2px #22d3ee55;
+  transition: opacity 0.25s ease, transform 0.15s ease;
+  opacity: 0.85;
+}
+.chat-resize-grip:hover{
+  opacity: 1;
+  transform: scale(1.15);
+  box-shadow: 0 0 6px #22d3ee, inset 0 0 3px #22d3ee;
+}
+@media (max-width: 979px){
+  .chat-resize-grip{ width:22px; height:22px; right:12px; bottom:12px; }
+}
+
+/* =========== Header chat =========== */
+.chat-title{
+  display:flex; align-items:center; justify-content:space-between; margin-bottom:.5rem;
+}
+.chat-min-btn{
+  width:28px; height:28px; display:grid; place-items:center;
+  border:1px solid var(--border); border-radius:8px;
+  background:transparent; color:var(--muted);
+  font-weight:700; font-size:18px; cursor:pointer;
+}
+.chat-min-btn:hover{ background:#0b1220; color:var(--text); }
+
+/* =========== Chat log (única barra) =========== */
+.chat-log{
+  flex:1 1 auto; min-height:360px; overflow:auto; overscroll-behavior:contain;
+  background:#0b1220; border:1px solid var(--border); border-radius:8px;
+  padding:14px; margin-bottom:12px;
+}
+
+/* =========== Mensajes =========== */
+.msg{ margin-bottom:14px; }
+.msg .meta{ font-size:12px; color:var(--muted); margin-bottom:4px; display:flex; gap:6px; flex-wrap:wrap; }
+.msg.me{ color:var(--accent); }
+.msg.bot{ color:var(--text); }
+.msg.error{ color:var(--err); }
+.msg > div{ font-size:15.5px; line-height:1.55; }
+
+/* =========== Pensando… =========== */
+.thinking-badge{ display:inline-flex; align-items:center; gap:.35rem; font-weight:600; opacity:.9; font-size:12.5px; }
+.dots::after{ content:'…'; display:inline-block; animation:dots 1.1s steps(3,end) infinite; }
+@keyframes dots{
+  0%{ clip-path:inset(0 1.2rem 0 0); }
+  33%{ clip-path:inset(0 .8rem 0 0); }
+  66%{ clip-path:inset(0 .35rem 0 0); }
+  100%{ clip-path:inset(0 0 0 0); }
+}
+.timer{ font-variant-numeric:tabular-nums; opacity:.75; }
+.thinking-badge[data-mode="fixed"] .dots::after{ animation:none; content:""; }
+
+/* =========== Chip LLM =========== */
+.llm-chip{
+  display:inline-flex; align-items:center;
+  padding:2px 8px; border-radius:10px;
+  font-size:11px; background:#0f766e22;
+  color:#0d9488; border:1px solid #0d948833;
+}
+
+/* =========== Barra de acciones =========== */
+.action-bar{
+  margin-top:.5rem; padding:.55rem .7rem;
+  border:1px dashed #20405a; background:#0a1524; border-radius:8px;
+  display:flex; align-items:center; gap:.6rem; flex-wrap:wrap;
+}
+.action-btn{
+  padding:.45rem .7rem; border-radius:8px; border:1px solid #2b4f6c;
+  background:#0e2236; color:#e3f3ff; cursor:pointer; font-weight:600;
+}
+.action-btn:hover{ background:#12314d; border-color:#3e739c; }
+
+/* =========== Formulario =========== */
+.chat-form{
+  display:flex; gap:8px;
+  margin-bottom:4px;            /* separa del borde inferior */
+  padding-right:28px;           /* reserva espacio para el grip */
+}
+.chat-form input{
+  flex:1; padding:12px; border-radius:8px; border:1px solid var(--border);
+  background:#0b1220; color:var(--text);    /* <- FIX */
+}
+.chat-form input:focus{ outline:2px solid #0ea5e9; outline-offset:2px; }
+.chat-form button{
+  padding:0 14px; border:none; background:var(--accent); color:#002e35;
+  border-radius:8px; cursor:pointer; font-weight:700; min-width:110px;
+}
+.chat-form button:hover{ filter:brightness(1.05); }
+
+/* =========== Feedback =========== */
+.feedback{ display:flex; align-items:center; gap:.5rem; margin-top:.5rem; flex-wrap:wrap; }
+.fb-label{ font-size:.9rem; color:#aab4c3; }
+.fb-btn{
+  border:0; cursor:pointer; font-size:1rem; padding:.25rem .5rem;
+  border-radius:.5rem; background:#152033; color:#e2e8f0;
+}
+.fb-btn:hover{ background:#1b2a44; }
+.fb-btn[disabled]{ opacity:0.45; cursor:not-allowed; filter:grayscale(0.3); }
+.ok-green { color:#22c55e; font-weight:600; margin-left:6px; }
+
+/* =========== FAB (botón flotante) =========== */
+.chat-fab{
+  position:fixed; right:18px; bottom:18px; z-index:1000;
+  width:150px; height:150px;                 /* tamaño grande */
+  border-radius:50%; border:none; cursor:pointer;
+  background:var(--accent); color:#002e35;
+  display:none; align-items:center; justify-content:center;
+  box-shadow:0 10px 26px rgba(0,0,0,.35);
+  transition: transform .3s ease-in-out;
+  /* sin animación por defecto; sólo corre cuando body.chat-min */
+}
+.chat-fab img.icon{
+  width:88%; height:88%;                      /* AGRANDADO */
+  object-fit:contain;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,.4));
+}
+
+/* Movimiento del botón y pulso del ícono */
+@keyframes botMove{
+  0%,100%{ transform: translateY(0) rotate(0deg); }
+  25%    { transform: translateY(-6px) rotate(-4deg); }
+  50%    { transform: translateY(3px)  rotate(4deg); }
+  75%    { transform: translateY(-6px) rotate(-4deg); }
+}
+@keyframes iconPulse{
+  0%,100%{ transform: scale(1); }
+  50%    { transform: scale(1.04); }
+}
+
+/* Hover manual (cuando está visible) */
+.chat-fab:hover{ transform: translateY(-2px); }
+
+/* *** Solo se muestra y se ANIMA cuando el chat está minimizado *** */
+body.chat-min .chat-fab{
+  display:inline-flex;
+  animation: botMove 2.5s ease-in-out infinite;
+}
+body.chat-min .chat-fab .icon{
+  animation: iconPulse 2.5s ease-in-out infinite;
+}
+
+/* Responsive: más chico en celu */
+@media (max-width:480px){
+  .chat-fab{ width:120px; height:120px; }
+}
+
+/* Respeta “reducir movimiento” del sistema */
+@media (prefers-reduced-motion: reduce){
+  body.chat-min .chat-fab,
+  body.chat-min .chat-fab .icon{ animation:none; }
+}
+
+/* =========== Opciones (desambiguación) =========== */
+.choice-wrap{ margin-top:.5rem; display:grid; gap:.5rem; }
+.choice-btn{
+  padding:.7rem .9rem; border-radius:8px; background:#0f172a; border:1px solid #1f2a44;
+  text-align:left; color:#e2e8f0; cursor:pointer; transition:transform .05s ease, border-color .2s ease;
+}
+.choice-btn:hover{ transform:translateY(-1px); border-color:#3b82f6; }
+.choice-btn.fade-out{ opacity: 0; transition: opacity .28s ease; }
+.choice-btn.chosen{ outline: 2px solid var(--accent, #4ea1ff); }
+.choice-title{ font-weight: 600; margin-bottom: 2px; }
+.choice-date{ opacity: .75; font-size: .9rem; margin-bottom: 2px; }
+.choice-prev{ opacity: .9; font-size: .9rem; }
+
+/* =========== Accesibilidad (screen-reader) =========== */
+.sr-only{
+  position:absolute!important; width:1px;height:1px;margin:-1px;overflow:hidden;
+  clip: rect(0,0,0,0);           /* con comas */
+  clip-path: inset(50%);         /* alternativa moderna */
+  white-space:nowrap; border:0;
+}
+/* Ocultar completamente el panel cuando el JS le pone la clase .hidden */
+.chat.hidden{ 
+  display: none !important;
+}
+
+/* En escritorio, cuando el chat está minimizado, la grilla vuelve a una sola columna */
+@media (min-width:980px){
+  body.chat-min .container{
+    grid-template-columns: 1fr !important;
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "rules": [
+    {
+      "name": "foundation_priority",
+      "query_any_regex": ["\\bfundaci[oó]n\\b","\\borigen\\b","\\bcreaci[oó]n\\b"],
+      "title_must_contain_all_regex": ["\\bfundaci[oó]n|origen|creaci[oó]n\\b"],
+      "boost": 10.0
+    }
+  ]
+}

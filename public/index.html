@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Museo Histórico de Realicó</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+
+  <body>
+    <!-- =================== Barra superior =================== -->
+    <header class="topbar" role="banner">
+      <h1>Museo Histórico de Realicó</h1>
+      <p>Recorré los hitos del pueblo y consultá al asistente</p>
+    </header>
+
+    <!-- =================== Contenido principal =================== -->
+    <main class="container" role="main">
+      <!-- Columna izquierda: línea de tiempo -->
+      <section aria-labelledby="timeline-title">
+        <h2 id="timeline-title" class="section-title">Línea de tiempo (selección)</h2>
+        <div id="timeline" class="timeline" aria-live="polite"></div>
+      </section>
+
+      <!-- Columna derecha: asistente -->
+      <section class="chat" role="region" aria-labelledby="chat-title">
+        <!-- Header del chat -->
+        <div class="chat-title">
+          <h2 id="chat-title" class="section-title" style="margin:0">Asistente del Museo</h2>
+          <button
+            id="chat-min-btn"
+            class="chat-min-btn"
+            type="button"
+            title="Minimizar/expandir"
+            aria-label="Minimizar o expandir el chat">—</button>
+        </div>
+
+        <!-- Log del chat -->
+        <div
+          id="chat-log"
+          class="chat-log"
+          role="log"
+          aria-live="polite"
+          aria-relevant="additions"
+          aria-busy="false">
+        </div>
+
+        <!-- Formulario -->
+        <form id="chat-form" class="chat-form" autocomplete="off" aria-label="Formulario de consulta al asistente">
+          <label id="chat-input-label" class="sr-only" for="chat-input">Escribí tu pregunta</label>
+          <input
+            id="chat-input"
+            type="text"
+            placeholder="Podrías explicar la historia del... (por ejemplo: Molino harinero)"
+            aria-labelledby="chat-input-label" />
+          <button id="chat-btn" type="submit">Preguntar</button>
+        </form>
+
+        <!-- 👇 Grip visual para redimensionar -->
+        <div
+          class="chat-resize-grip"
+          id="chat-grip"
+          title="Arrastrar para cambiar el tamaño del chat"
+          role="presentation">
+        </div>
+      </section>
+    </main>
+
+    <!-- =================== Pie =================== -->
+    <footer class="footer" role="contentinfo">
+      Proyecto educativo local. Datos históricos provienen del repositorio del museo.
+    </footer>
+
+    <!-- =================== FAB (bot flotante) =================== -->
+    <button id="chat-fab" class="chat-fab" aria-label="Abrir asistente">
+      <img class="icon" src="/img/bot.svg" alt="Asistente" />
+      <span class="sr-only">Asistente</span>
+    </button>
+
+
+    <script src="./script.js" defer></script>
+    <noscript>Necesitás habilitar JavaScript para usar el asistente.</noscript>
+  </body>
+</html>
