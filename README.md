@@ -40,7 +40,7 @@ El usuario puede realizar una consulta por voz. El sistema:
 
 ## Contexto académico
 
-Proyecto realizado en el marco de la **Práctica Profesional de Inteligencia Artificial y Robótica**, con acompañamiento académico del **Ing. Marcelo Griotti**.
+Proyecto realizado en el marco de la Práctica Profesional de Inteligencia Artificial y Robótica – Universidad Siglo 21.
 
 El desarrollo permitió trabajar sobre integración de software, inteligencia artificial, recuperación semántica, microservicios, procesamiento de audio y accesibilidad.
 
